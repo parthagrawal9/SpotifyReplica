@@ -6,8 +6,18 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var artistRouter = require('./routes/artistRoutes');
+var songRouter = require('./routes/songRoutes');
+var usersRouter = require('./routes/userRoutes');
 
 var app = express();
+
+const mongoose = require('mongoose');
+const url = 'mongodb://localhost:27017/SpotifyReplica';
+const connect = mongoose.connect(url);
+connect.then((db)=>{
+  console.log("connected to mongo")
+}).catch((err)=>console.log(err))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/artists',artistRouter);
+app.use('/songs',songRouter);
+app.use('/users',usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
