@@ -1,11 +1,32 @@
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
-const Artist = require('../models/artist')
 const Song = require('../models/song')
+const multer = require('multer')
 
 const songRouter = express.Router();
 songRouter.use(bodyParser.json());
+
+const storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, 'assets/song_cover')
+    },
+    filename: (req, file, callBack) => {
+        callBack(null, `${file.originalname}`)
+    }
+})
+const upload = multer({ storage: storage })
+
+songRouter.post('/cover', upload.single('file'), (req, res, next) => {
+    const file = req.file;
+    console.log(file.filename);
+    if (!file) {
+      const error = new Error('No File')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+    res.send(file);
+})
 
 songRouter.route('/')
 .get((req,res,next) => {
@@ -23,6 +44,7 @@ songRouter.route('/')
 })
 .post((req,res,next) => {
     req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    // req.body.cover = req.body.id;
     Song.create(req.body)
     .then((song) => {
         res.statusCode = 200;
@@ -35,9 +57,7 @@ songRouter.route('/')
         next(err)
     });
 })
-.put((req,res,next) => {
-
-})
+.put((req,res,next) => {})
 .delete((req,res,next) => {
     Song.remove({})
     .then((result)=>{

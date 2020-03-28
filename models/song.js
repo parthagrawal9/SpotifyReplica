@@ -2,11 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const rateSchema = new Schema({
-    id:{
-        type: String,
-        required: true,
-        unique: true
-    },
     rate:{
         type: Number,
         min: 1,
@@ -35,7 +30,8 @@ const songSchema = new Schema({
         type: Date
     },
     cover:{
-        type: String
+        type: String,
+        default: "default.jpg"
     },
     artistList: [String],
     rating: [rateSchema]
