@@ -29,7 +29,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/public', express.static(path.resolve(__dirname, 'public')));
+app.use('/assets', express.static(path.resolve(__dirname, 'assets')));
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'assets/song_cover')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

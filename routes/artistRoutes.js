@@ -21,7 +21,7 @@ artistRouter.route('/')
     });
 })
 .post((req,res,next) => {
-    req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
     Artist.create(req.body)
     .then((artist) => {
         res.statusCode = 200;

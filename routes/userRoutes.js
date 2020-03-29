@@ -21,7 +21,8 @@ userRouter.route('/')
     });
 })
 .post((req,res,next) => {
-    req.body.id = Math.floor(Math.random() * 1000000)+100000;
+
+    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
     User.create(req.body)
     .then((user) => {
         res.statusCode = 200;

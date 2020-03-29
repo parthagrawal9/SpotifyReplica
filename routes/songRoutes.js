@@ -43,12 +43,8 @@ songRouter.route('/')
     });
 })
 .post((req,res,next) => {
-    req.body.id = Math.floor(Math.random() * 1000000)+100000;
-    // req.body.cover = req.body.id;
-    // for (let index = 0; index < req.length; index++) {
-        
-        
-    // }
+    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    
     Song.create(req.body)
     .then((song) => {
         res.statusCode = 200;
@@ -75,5 +71,45 @@ songRouter.route('/')
         next(err)
     });
 });
+
+songRouter.route('/:songId/rating')
+.post((req,res,next) => {
+    Song.findOne({id:req.params.songId})
+    .then((song)=>{
+        if(song!=null){
+            console.log(song)
+            song.rating.push(req.body);
+            song.save().then((song)=>{
+                res.statusCode = 200;
+                res.setHeader('Content-Type','application/json')
+                res.json(song)
+            })
+        }else{
+            (err)=>next(err)
+        }  
+    },(err)=>next(err))
+    .catch((err)=>next(err))
+})
+.put((req,res,next) => {
+    Song.findOne({id:req.params.songId})
+    .then((song)=>{
+        if(song!=null){
+            for (let i = 0; i < song.rating.length; i++) {
+                if(song.rating[i].user == req.body.user){
+                    song.rating[i].rate = req.body.rate;
+                    break;
+                }
+            }
+            song.save().then((song)=>{
+                res.statusCode = 200;
+                res.setHeader('Content-Type','application/json')
+                res.json(song)
+            })
+        }else{
+            (err)=>next(err)
+        }  
+    },(err)=>next(err))
+    .catch((err)=>next(err))
+})
 
 module.exports = songRouter;
