@@ -51,4 +51,19 @@ artistRouter.route('/')
     });
 });
 
+artistRouter.route('/:artistId')
+.get((req,res,next) => {
+    Artist.find({id:req.params.artistId})
+    .then((artists) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type','application/json')
+        res.json(artists);
+    },(err) => {
+        next(err)
+    })
+    .catch((err) => {
+        next(err)
+    });
+})
+
 module.exports = artistRouter;

@@ -45,6 +45,10 @@ songRouter.route('/')
 .post((req,res,next) => {
     req.body.id = Math.floor(Math.random() * 1000000)+100000;
     // req.body.cover = req.body.id;
+    // for (let index = 0; index < req.length; index++) {
+        
+        
+    // }
     Song.create(req.body)
     .then((song) => {
         res.statusCode = 200;
