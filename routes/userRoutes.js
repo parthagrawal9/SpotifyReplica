@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
 const User = require('../models/user')
@@ -8,6 +7,7 @@ userRouter.use(bodyParser.json());
 
 userRouter.route('/')
 .get((req,res,next) => {
+    console.log(req.headers);
     User.find({})
     .then((users) => {
         res.statusCode = 200;
@@ -21,8 +21,8 @@ userRouter.route('/')
     });
 })
 .post((req,res,next) => {
-
-    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    // req.body.password = User.hashPassword(req.body.password)
     User.create(req.body)
     .then((user) => {
         res.statusCode = 200;
@@ -52,4 +52,6 @@ userRouter.route('/')
     });
 });
 
+
 module.exports = userRouter;
+

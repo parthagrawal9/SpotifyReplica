@@ -21,7 +21,9 @@ artistRouter.route('/')
     });
 })
 .post((req,res,next) => {
-    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    // req.body.dob = new Date(req.body.dob)
+    console.log(req.body)
     Artist.create(req.body)
     .then((artist) => {
         res.statusCode = 200;
@@ -65,5 +67,25 @@ artistRouter.route('/:artistId')
         next(err)
     });
 })
+.post((req,res,next) => {
+    Artist.findOne({id:req.params.artistId})
+    .then((artist) => {
+        artist.songList.push(req.body.songId)
+        artist.save()
+        .then((artist)=>{
+            res.statusCode = 200;
+            res.setHeader('Content-Type','application/json')
+            res.json(artist);
+        })
+        
+    },(err) => {
+        next(err)
+    })
+    .catch((err) => {
+        next(err)
+    });
+})
+
+
 
 module.exports = artistRouter;

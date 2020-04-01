@@ -30,6 +30,7 @@ songRouter.post('/cover', upload.single('file'), (req, res, next) => {
 
 songRouter.route('/')
 .get((req,res,next) => {
+    console.log(req.headers);
     Song.find({})
     .then((songs) => {
         res.statusCode = 200;
@@ -43,7 +44,7 @@ songRouter.route('/')
     });
 })
 .post((req,res,next) => {
-    // req.body.id = Math.floor(Math.random() * 1000000)+100000;
+    req.body.id = Math.floor(Math.random() * 1000000)+100000;
     
     Song.create(req.body)
     .then((song) => {
