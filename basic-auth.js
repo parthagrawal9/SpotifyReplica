@@ -1,4 +1,3 @@
-const userService = require('./userauthservice');
 const User = require('./models/user')
 
 module.exports = basicAuth;
