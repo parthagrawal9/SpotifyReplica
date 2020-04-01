@@ -1,3 +1,6 @@
+///////////////
+// DB SCRIPT //
+///////////////
 db.songs.insert({
     "cover": "default.jpg",
     "artistList": [

@@ -6,7 +6,7 @@ const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.route('/')
-.get((req,res,next) => {
+.get((req,res,next) => {  //GET METHOD
     console.log(req.headers);
     User.find({})
     .then((users) => {
@@ -20,9 +20,9 @@ userRouter.route('/')
         next(err)
     });
 })
-.post((req,res,next) => {
-    req.body.id = Math.floor(Math.random() * 1000000)+100000;
-    // req.body.password = User.hashPassword(req.body.password)
+.post((req,res,next) => { //POST METHOD
+    req.body.id = Math.floor(Math.random() * 1000000)+100000; //GENERATING ID
+    // req.body.password = User.hashPassword(req.body.password) //BCRYPT ENCRYPTION
     User.create(req.body)
     .then((user) => {
         res.statusCode = 200;
@@ -38,7 +38,7 @@ userRouter.route('/')
 .put((req,res,next) => {
 
 })
-.delete((req,res,next) => {
+.delete((req,res,next) => { //DELETE METHOD
     User.remove({})
     .then((result)=>{
         res.statusCode = 200;

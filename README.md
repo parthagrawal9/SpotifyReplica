@@ -2,7 +2,7 @@ Author: Parth Agrawal
 Contact: agrawal.parth9@gmail.com
 
 This repository is focusing on the Backend of Spotify Replica App.
-For frontend kindly check "SpotifyReplicaUI" repository. (https://github.com/parthagrawal9/SpotifyReplicaUI)
+For frontend and screenshots kindly check "SpotifyReplicaUI" repository. (https://github.com/parthagrawal9/SpotifyReplicaUI)
 
 Problem Statement:
 

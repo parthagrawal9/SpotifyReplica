@@ -7,7 +7,7 @@ const artistRouter = express.Router();
 artistRouter.use(bodyParser.json());
 
 artistRouter.route('/')
-.get((req,res,next) => {
+.get((req,res,next) => {  //GET METHOD
     Artist.find({})
     .then((artists) => {
         res.statusCode = 200;
@@ -20,7 +20,7 @@ artistRouter.route('/')
         next(err)
     });
 })
-.post((req,res,next) => {
+.post((req,res,next) => {  //POST METHOD
     req.body.id = Math.floor(Math.random() * 1000000)+100000;
     // req.body.dob = new Date(req.body.dob)
     console.log(req.body)
@@ -36,10 +36,10 @@ artistRouter.route('/')
         next(err)
     });
 })
-.put((req,res,next) => {
-
+.put((req,res,next) => { 
+    
 })
-.delete((req,res,next) => {
+.delete((req,res,next) => { //DELETE METHOD
     Artist.remove({})
     .then((result)=>{
         res.statusCode = 200;
@@ -54,7 +54,7 @@ artistRouter.route('/')
 });
 
 artistRouter.route('/:artistId')
-.get((req,res,next) => {
+.get((req,res,next) => { //GET METHOD for particular artist
     Artist.find({id:req.params.artistId})
     .then((artists) => {
         res.statusCode = 200;
@@ -67,7 +67,7 @@ artistRouter.route('/:artistId')
         next(err)
     });
 })
-.post((req,res,next) => {
+.post((req,res,next) => { //POST METHOD TO ADD NEW SONG OF AN ARTIST
     Artist.findOne({id:req.params.artistId})
     .then((artist) => {
         artist.songList.push(req.body.songId)

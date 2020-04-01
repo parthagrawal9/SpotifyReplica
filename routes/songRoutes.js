@@ -7,7 +7,7 @@ const multer = require('multer')
 const songRouter = express.Router();
 songRouter.use(bodyParser.json());
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({ //STORING IMAGES
     destination: (req, file, callBack) => {
         callBack(null, 'assets/song_cover')
     },
@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
+//POST METHOD TO SAVE IMAGE
 songRouter.post('/cover', upload.single('file'), (req, res, next) => {
     const file = req.file;
     console.log(file.filename);
@@ -29,7 +30,7 @@ songRouter.post('/cover', upload.single('file'), (req, res, next) => {
 })
 
 songRouter.route('/')
-.get((req,res,next) => {
+.get((req,res,next) => { //GET METHOD
     console.log(req.headers);
     Song.find({})
     .then((songs) => {
@@ -43,7 +44,7 @@ songRouter.route('/')
         next(err)
     });
 })
-.post((req,res,next) => {
+.post((req,res,next) => { //POST METHOD
     req.body.id = Math.floor(Math.random() * 1000000)+100000;
     
     Song.create(req.body)
@@ -59,7 +60,7 @@ songRouter.route('/')
     });
 })
 .put((req,res,next) => {})
-.delete((req,res,next) => {
+.delete((req,res,next) => { //DELETE METHOD
     Song.remove({})
     .then((result)=>{
         res.statusCode = 200;
@@ -73,7 +74,7 @@ songRouter.route('/')
     });
 });
 
-songRouter.route('/:songId/rating')
+songRouter.route('/:songId/rating') //POST METHOD TO ADD RATING TO A SONG
 .post((req,res,next) => {
     Song.findOne({id:req.params.songId})
     .then((song)=>{
@@ -91,7 +92,7 @@ songRouter.route('/:songId/rating')
     },(err)=>next(err))
     .catch((err)=>next(err))
 })
-.put((req,res,next) => {
+.put((req,res,next) => { //PUT METHOD TO UPDATE RATING OF A SONG
     Song.findOne({id:req.params.songId})
     .then((song)=>{
         if(song!=null){

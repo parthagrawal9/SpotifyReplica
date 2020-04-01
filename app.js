@@ -4,20 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require("cors");
+const mongoose = require('mongoose');
 const basicauth = require('./basic-auth')
 
-var indexRouter = require('./routes/index');
-var usersRouterDefalut = require('./routes/users');
-var artistRouter = require('./routes/artistRoutes');
-var songRouter = require('./routes/songRoutes');
-var usersRouter = require('./routes/userRoutes');
+var indexRouter = require('./routes/index');  //routes for indexdefault
+var usersRouterDefalut = require('./routes/users'); //routes for userdefault
+var artistRouter = require('./routes/artistRoutes'); //routes for artists
+var songRouter = require('./routes/songRoutes'); //routes for songs
+var usersRouter = require('./routes/userRoutes'); //routes for users
 
 var app = express();
 
-const mongoose = require('mongoose');
 const url = 'mongodb://localhost:27017/SpotifyReplica';
 const connect = mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true });
-connect.then((db)=>{
+connect.then((db)=>{ // connecting to mongodb
   console.log("connected to mongo")
 }).catch((err)=>console.log(err))
 
@@ -25,18 +25,25 @@ connect.then((db)=>{
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//cors filter
 app.use(cors({ origin: "*" }));
+
+//logger
 app.use(logger('dev'));
+
+//express config
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
+// public static paths
 app.use('/public', express.static(path.resolve(__dirname, 'public')));
 app.use('/assets', express.static(path.resolve(__dirname, 'assets')));
 
+// authentication
 app.use(basicauth)
 
+//routes redirecting to particular route
 app.use('/', indexRouter);
 app.post('/login', function(req, res, next) {
   res.status(200).json(global.user)

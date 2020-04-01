@@ -4,6 +4,7 @@ module.exports = basicAuth;
 
 async function basicAuth(req, res, next) {
 
+    //allowing to view songs ans artists without login
     if ((req.path === '/api/songs' || req.path === '/api/artists') && req.method == 'GET') {
         return next();
     }
