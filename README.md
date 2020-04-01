@@ -1,3 +1,6 @@
+Author: Parth Agrawal
+Contact: agrawal.parth9@gmail.com
+
 This repository is focusing on the Backend of Spotify Replica App.
 For frontend kindly check "SpotifyReplicaUI" repository. (https://github.com/parthagrawal9/SpotifyReplicaUI)
 
@@ -126,7 +129,7 @@ DEPLOYMENT:
 
 DB SCRIPT:
 
-    - In root folder loadData.js is the cript to populate data in mongodb
+    - In root folder loadData.js is the script to populate data in mongodb
 
     - Go to the mongoDB shell
 
@@ -151,7 +154,3 @@ MONGODB DOCKER:
         - You might need to install mongo-client to run the above mentioned command.
 
         - Thats all. You are all set with mongo db container. :)
-
-
-
-
