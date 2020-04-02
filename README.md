@@ -2,7 +2,19 @@ Author: Parth Agrawal
 Contact: agrawal.parth9@gmail.com
 
 This repository is focusing on the Backend of Spotify Replica App.
+
 For frontend and screenshots kindly check "SpotifyReplicaUI" repository. (https://github.com/parthagrawal9/SpotifyReplicaUI)
+
+Contents:
+
+    1. Problem statement
+    2. Tech Stack
+    3. Application Info
+    4. Running backend 
+    5. Deployment
+    6. DB Script
+    7. MongoDB Docker
+    8. Running whole SpotifyReplica Application (Frontend and backend both)
 
 Problem Statement:
 
@@ -89,7 +101,7 @@ APPLICATION:
 
     - Using mongoose to interact with mongodb
 
-RUN APPLICATION:
+RUN APPLICATION (Backend):
 
     1. clone the repo
 
@@ -154,3 +166,47 @@ MONGODB DOCKER:
         - You might need to install mongo-client to run the above mentioned command.
 
         - Thats all. You are all set with mongo db container. :)
+
+RUN APPLICATION (FULL APPLICATION BACKEND & FRONTEND):
+
+    - Start Mongodb server & load the db with `loadData.js` script
+
+    - After running the script 3 collections will be added
+
+            - songs
+
+            - artists
+
+            - users
+
+    - Run Node application (check guide for running backend in `SpotifyReplica` repo [https://github.com/parthagrawal9/SpotifyReplica])
+
+    - Run Front End application
+
+    - Go to browser and visit localhost:4200
+
+    - Home page will be displayed first. It will display Top 10 Songs and Artitsts only.
+
+    - There is a login option on top-bar. On successful login you will be redirected to home page again but now user will get the option of rating the song and  add new song. (check screenshots for better understanding).
+
+        - If you are using the script for loading data 3 users are already created
+
+                - Parth
+                    - email: parth@abc.com
+                    - password: parth 
+                
+                - Parul
+                    - email: parul@abc.com
+                    - password: parul
+
+                - Nupur
+                    - email: nupur@abc.com
+                    - password: nupur
+    
+    - User will also see the rating provided by himself (if rated). If not it will show blank stars. Each user will get there own rating. 
+
+        - Lets assume there are 5 songs.
+        - One user rated 2 songs & 3 songs are not rated by him
+        - then the list of top songs will display star rating based on current user. If the user has not rated the song it will display empty stars.
+        - When the user clicks on rating(update the rating), the new rating will be added / updated in the database.
+        - Other users will get rating stars based on there previous rating. So each user can see their own rating only and get a more personalised experience.
